@@ -28,3 +28,46 @@ classifier.add(Flatten())
 
 #Step-4 Fully Connected layer
 classifier.add(Dense(units=128,activation="relu"))
+
+#Output layer
+classifier.add(Dense(units=1,activation="sigmoid"))
+
+#Compiling the fully connected layer
+classifier.compile(optimizer="adam",loss="binary_crossentropy",metrics=['accuracy'])
+
+#Fitting section
+
+#Importing ImageDataGenerator
+from keras.preprocessing.image import ImageDataGenerator
+
+#Training data generator
+train_datagen = ImageDataGenerator(
+        rescale=1./255,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True)
+
+#Test data generator
+test_datagen = ImageDataGenerator(rescale=1./255)
+
+#Training set
+training_set = train_datagen.flow_from_directory(
+        'dataset/training_set',#Enter your dataset path here
+        target_size=(64, 64),
+        batch_size=32,
+        class_mode='binary')
+
+#Test set
+test_set = test_datagen.flow_from_directory(
+        'dataset/test_set',#Enter your dataset path here
+        target_size=(64, 64),
+        batch_size=32,
+        class_mode='binary')
+
+#Fitting the classifier
+classifier.fit_generator(
+        training_set,
+        steps_per_epoch=8000,
+        epochs=1,
+        validation_data=test_set,
+        validation_steps=2000)
