@@ -77,3 +77,9 @@ classifier.fit_generator(
 #Check whether an image is a cat or dog
 import numpy as np
 from keras.preprocessing import image
+
+#Accepting the path name as input
+path_name=input("image path: ")
+
+#Reading the image
+single_image=image.load_img(path_name,target_size=(64,64))
