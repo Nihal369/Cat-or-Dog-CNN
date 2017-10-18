@@ -18,4 +18,9 @@ from keras.layers import Flatten
 classifier=Sequential()
 
 #Step-1 Convolution
-classifier.add(Convolution2D(32,64,activation='relu',input_shape=(64,64,3)))
+classifier.add(Convolution2D(32,(3,3),activation='relu',input_shape=(64,64,3)))
+
+#Step-2 Pooling
+classifier.add(MaxPooling2D(pool_size=(2,2)))
+
+
