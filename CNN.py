@@ -71,3 +71,9 @@ classifier.fit_generator(
         epochs=1,
         validation_data=test_set,
         validation_steps=2000)
+
+
+
+#Check whether an image is a cat or dog
+import numpy as np
+from keras.preprocessing import image
