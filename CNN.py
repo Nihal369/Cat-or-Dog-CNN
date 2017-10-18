@@ -18,9 +18,13 @@ from keras.layers import Flatten
 classifier=Sequential()
 
 #Step-1 Convolution
-classifier.add(Convolution2D(32,(3,3),activation='relu',input_shape=(64,64,3)))
+classifier.add(Convolution2D(32,(3,3),activation='relu',input_shape=(128,128,3)))
 
 #Step-2 Pooling
+classifier.add(MaxPooling2D(pool_size=(2,2)))
+
+#Extra convolution and pooling
+classifier.add(Convolution2D(32,(3,3),activation='relu'))
 classifier.add(MaxPooling2D(pool_size=(2,2)))
 
 #Step-3 Flatenning
@@ -53,14 +57,14 @@ test_datagen = ImageDataGenerator(rescale=1./255)
 #Training set
 training_set = train_datagen.flow_from_directory(
         'dataset/training_set',#Enter your dataset path here
-        target_size=(64, 64),
+        target_size=(128, 128),
         batch_size=32,
         class_mode='binary')
 
 #Test set
 test_set = test_datagen.flow_from_directory(
         'dataset/test_set',#Enter your dataset path here
-        target_size=(64, 64),
+        target_size=(128, 128),
         batch_size=32,
         class_mode='binary')
 
@@ -68,7 +72,7 @@ test_set = test_datagen.flow_from_directory(
 classifier.fit_generator(
         training_set,
         steps_per_epoch=8000,
-        epochs=1,
+        epochs=15,
         validation_data=test_set,
         validation_steps=2000)
 
@@ -82,7 +86,7 @@ from keras.preprocessing import image
 path_name=input("image path: ")
 
 #Reading the image
-single_image=image.load_img(path_name,target_size=(64,64))
+single_image=image.load_img(path_name,target_size=(128,128))
 
 #Converting the image to an array
 single_image=image.img_to_array(single_image)
