@@ -25,3 +25,6 @@ classifier.add(MaxPooling2D(pool_size=(2,2)))
 
 #Step-3 Flatenning
 classifier.add(Flatten())
+
+#Step-4 Fully Connected layer
+classifier.add(Dense(units=128,activation="relu"))
