@@ -23,4 +23,5 @@ classifier.add(Convolution2D(32,(3,3),activation='relu',input_shape=(64,64,3)))
 #Step-2 Pooling
 classifier.add(MaxPooling2D(pool_size=(2,2)))
 
-
+#Step-3 Flatenning
+classifier.add(Flatten())
