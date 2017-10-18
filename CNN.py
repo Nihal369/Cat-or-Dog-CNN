@@ -83,3 +83,21 @@ path_name=input("image path: ")
 
 #Reading the image
 single_image=image.load_img(path_name,target_size=(64,64))
+
+#Converting the image to an array
+single_image=image.img_to_array(single_image)
+
+#Adding an extra dimension the image array
+single_image=np.expand_dims(single_image,0)
+
+#Prediciting the result
+category=classifier.predict(single_image)
+
+#Know which integer represent a cat or dog
+training_set.class_indices
+
+#Converting the int to string result
+if(category>0.5):
+    print("Dog")
+else:
+    print("Cat")
